@@ -95,9 +95,21 @@ public class AuthController {
     @RolesAllowed({"USER_LEVEL1","ADMIN"})
     @PostMapping("/user")
     public String sayHiUser(){
-        return "Hello User";
+        return "Hello user level1";
+    }
+
+    @RolesAllowed({"USER_LEVEL2","ADMIN"})
+    @PostMapping("/special_users")
+    public String sayHiSpecialUser(){
+        return "Hello user special user";
     }
 }
+
+
+
+
+
+
 
 
 //package com.example.jwt_spring_ex.controller;
