@@ -113,7 +113,7 @@ public class AuthController {
     @RolesAllowed({"NURSE_LEVEL2","ADMIN"})
     @PostMapping("/special_nurses")
     public String sayHiSpecialNurses(){
-        return "Hello special nurses";
+        return " Hello special nurses ";
     }
 }
 
