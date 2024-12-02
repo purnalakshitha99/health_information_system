@@ -35,6 +35,8 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/special_users/**").hasAnyRole("USER_LEVEL2","ADMIN");
                     auth.requestMatchers("/nurses/**").hasAnyRole("NURSE_LEVEL1","ADMIN");
                     auth.requestMatchers("/special_nurses/**").hasAnyRole("NURSE_LEVEL2","ADMIN");
+                    auth.requestMatchers("/doctors/**").hasAnyRole("DOCTOR_LEVEL1","ADMIN");
+                    auth.requestMatchers("/special_doctors/**").hasAnyRole("DOCTOR_LEVEL2","ADMIN");
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
