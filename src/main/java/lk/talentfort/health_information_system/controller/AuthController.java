@@ -101,7 +101,19 @@ public class AuthController {
     @RolesAllowed({"USER_LEVEL2","ADMIN"})
     @PostMapping("/special_users")
     public String sayHiSpecialUser(){
-        return "Hello user special user";
+        return "Hello  special user";
+    }
+
+    @RolesAllowed({"NURSE_LEVEL1","ADMIN"})
+    @PostMapping("/nurses")
+    public String sayHiNurses(){
+        return "Hello nurses";
+    }
+
+    @RolesAllowed({"NURSE_LEVEL2","ADMIN"})
+    @PostMapping("/special_nurses")
+    public String sayHiSpecialNurses(){
+        return "Hello special nurses";
     }
 }
 
