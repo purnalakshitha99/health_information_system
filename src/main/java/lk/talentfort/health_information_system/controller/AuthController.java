@@ -92,7 +92,7 @@ public class AuthController {
     }
 
 
-    @RolesAllowed({"USER","ADMIN"})
+    @RolesAllowed({"USER_LEVEL1","ADMIN"})
     @PostMapping("/user")
     public String sayHiUser(){
         return "Hello User";
