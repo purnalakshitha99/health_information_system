@@ -43,16 +43,6 @@ public class UserController {
         return ResponseEntity.created(URI.create("users")).body(userResponse);
     }
 
-
-//    @RolesAllowed("ADMIN")
-//    @GetMapping("/users/{user_id}")
-//    public ResponseEntity<UserResponse> getSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException {
-//
-//        UserResponse userResponse  = userService.getSpecificUser(userId);
-//
-//        return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
-//    }
-
 //    @RolesAllowed("ADMIN")
 //    @GetMapping("/users/{user_id}")
 //    public ResponseEntity<UserResponse> getSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException {
