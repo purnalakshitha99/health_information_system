@@ -1,19 +1,24 @@
 package lk.talentfort.health_information_system.controller;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.talentfort.health_information_system.controller.dto.UserDto;
 import lk.talentfort.health_information_system.controller.request.UserRq;
 import lk.talentfort.health_information_system.controller.response.UserResponse;
 
+import lk.talentfort.health_information_system.exception.UserNotFoundException;
 import lk.talentfort.health_information_system.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 
 @RestController
@@ -37,6 +42,16 @@ public class UserController {
 
         return ResponseEntity.created(URI.create("users")).body(userResponse);
     }
+
+
+//    @RolesAllowed("ADMIN")
+//    @GetMapping("/users/{user_id}")
+//    public ResponseEntity<UserResponse> getSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException {
+//
+//        UserResponse userResponse  = userService.getSpecificUser(userId);
+//
+//        return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
+//    }
 
 //    @RolesAllowed("ADMIN")
 //    @GetMapping("/users/{user_id}")
@@ -66,13 +81,23 @@ public class UserController {
 //        return new ResponseEntity<>(userResponse,HttpStatus.FOUND);
 //    }
 //
-//    @RolesAllowed("ADMIN")
-//    @GetMapping("/users")
-//    public List<ResponseEntity<List<UserResponse>>> getAllUsers()throws UserNotFoundException {
-//
-//        List<UserResponse> userResponseList = userService.getAllUsers();
-//
-//        return Collections.singletonList(new ResponseEntity<>(userResponseList, HttpStatus.FOUND));
-//    }
+
+
+
+    @RolesAllowed("ADMIN")
+    @GetMapping("/admin/users")
+    public List<ResponseEntity<List<UserResponse>>> getAllUsers()throws UserNotFoundException {
+
+        List<UserResponse> userResponseList = userService.getAllUsers();
+
+        return Collections.singletonList(new ResponseEntity<>(userResponseList, HttpStatus.FOUND));
+    }
+
+    @GetMapping("users/{user_id}")
+    public UserResponse getSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException{
+
+        return userService.getSpecificUser(userId);
+
+    }
 
 }
