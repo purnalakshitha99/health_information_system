@@ -57,4 +57,17 @@ public class UserServiceImpl implements UserService {
        return modelMapper.map(user,UserResponse.class);
     }
 
+    public UserResponse updateSpecificUser(Long userId,UserDto userDto) throws UserNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("that user not in a db")
+        );
+
+        modelMapper.map(userDto,user);
+
+        userRepository.save(user);
+
+        return modelMapper.map(user,UserResponse.class);
+    }
+
 }

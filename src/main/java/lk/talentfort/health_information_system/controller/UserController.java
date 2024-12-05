@@ -43,37 +43,6 @@ public class UserController {
         return ResponseEntity.created(URI.create("users")).body(userResponse);
     }
 
-//    @RolesAllowed("ADMIN")
-//    @GetMapping("/users/{user_id}")
-//    public ResponseEntity<UserResponse> getSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException {
-//
-//        UserResponse userResponse  = userService.getSpecificUser(userId);
-//
-//        return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
-//    }
-//
-//    @RolesAllowed({"USER","ADMIN"})
-//    @PutMapping("/users/{user_id}")
-//    public ResponseEntity<UserResponse> updateUser(@PathVariable("user_id")Long userID, @RequestBody UserRq userRq)throws UserNotFoundException {
-//
-//        UserDto userDto = modelMapper.map(userRq,UserDto.class);
-//        UserResponse userResponse = userService.updateUser(userID,userDto);
-//
-//        return new ResponseEntity<>(userResponse,HttpStatus.CREATED);
-//    }
-//
-//    @RolesAllowed("ADMIN")
-//    @DeleteMapping("/users/{user_id}")
-//    public ResponseEntity<UserResponse> deleteSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException{
-//
-//        UserResponse userResponse = userService.deleteSpecificUser(userId);
-//
-//        return new ResponseEntity<>(userResponse,HttpStatus.FOUND);
-//    }
-//
-
-
-
     @RolesAllowed("ADMIN")
     @GetMapping("/admin/users")
     public List<ResponseEntity<List<UserResponse>>> getAllUsers()throws UserNotFoundException {
@@ -89,5 +58,7 @@ public class UserController {
         return userService.getSpecificUser(userId);
 
     }
+
+
 
 }
