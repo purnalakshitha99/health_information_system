@@ -1,6 +1,7 @@
 package lk.talentfort.health_information_system.service;
 
 import lk.talentfort.health_information_system.controller.dto.UserDto;
+import lk.talentfort.health_information_system.controller.response.MessageResponse;
 import lk.talentfort.health_information_system.controller.response.UserResponse;
 import lk.talentfort.health_information_system.exception.UserNotFoundException;
 
@@ -18,4 +19,6 @@ public interface UserService {
     UserResponse getSpecificUser(Long userId)throws UserNotFoundException;
 
     UserResponse updateUser (Long userId,UserDto userDto)throws UserNotFoundException;
+
+    MessageResponse deleteUser(Long userId)throws UserNotFoundException;
 }

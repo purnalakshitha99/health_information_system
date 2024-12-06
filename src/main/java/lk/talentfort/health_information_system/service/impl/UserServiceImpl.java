@@ -1,6 +1,7 @@
 package lk.talentfort.health_information_system.service.impl;
 
 import lk.talentfort.health_information_system.controller.dto.UserDto;
+import lk.talentfort.health_information_system.controller.response.MessageResponse;
 import lk.talentfort.health_information_system.controller.response.UserResponse;
 import lk.talentfort.health_information_system.exception.UserNotFoundException;
 import lk.talentfort.health_information_system.model.User;
@@ -71,6 +72,23 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return modelMapper.map(user,UserResponse.class);
+    }
+
+    @Override
+    public MessageResponse deleteUser(Long userId) throws UserNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("that user not in a db")
+        );
+
+        userRepository.deleteById(userId);
+
+        MessageResponse messageResponse = new MessageResponse();
+
+        messageResponse.setMessage("user delete successfully");
+        messageResponse.setUserResponse(modelMapper.map(user, UserResponse.class));
+
+        return messageResponse;
     }
 
 }

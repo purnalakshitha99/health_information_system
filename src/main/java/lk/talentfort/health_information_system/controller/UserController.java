@@ -4,6 +4,7 @@ package lk.talentfort.health_information_system.controller;
 import jakarta.annotation.security.RolesAllowed;
 import lk.talentfort.health_information_system.controller.dto.UserDto;
 import lk.talentfort.health_information_system.controller.request.UserRq;
+import lk.talentfort.health_information_system.controller.response.MessageResponse;
 import lk.talentfort.health_information_system.controller.response.UserResponse;
 
 import lk.talentfort.health_information_system.exception.UserNotFoundException;
@@ -13,7 +14,6 @@ import org.modelmapper.ModelMapper;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -65,6 +65,13 @@ public class UserController {
         UserDto userDto = modelMapper.map(userRq,UserDto.class);
 
         return userService.updateUser(userId,userDto);
+    }
+
+    @DeleteMapping("/admin/users/{user_Id}")
+    public MessageResponse deleteUser(@PathVariable("user_Id")Long userId)throws UserNotFoundException{
+
+        return userService.deleteUser(userId);
+
     }
 
 }
