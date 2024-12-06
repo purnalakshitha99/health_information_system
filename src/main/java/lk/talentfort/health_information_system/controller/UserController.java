@@ -59,6 +59,12 @@ public class UserController {
 
     }
 
+    @PutMapping("/users/{user_id}")
+    public UserResponse updateUser(@PathVariable("user_id")Long userId,@RequestBody UserRq userRq)throws UserNotFoundException{
 
+        UserDto userDto = modelMapper.map(userRq,UserDto.class);
+
+        return userService.updateUser(userId,userDto);
+    }
 
 }

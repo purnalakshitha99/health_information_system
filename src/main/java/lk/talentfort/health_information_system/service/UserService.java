@@ -17,5 +17,5 @@ public interface UserService {
 
     UserResponse getSpecificUser(Long userId)throws UserNotFoundException;
 
-
+    UserResponse updateUser (Long userId,UserDto userDto)throws UserNotFoundException;
 }
