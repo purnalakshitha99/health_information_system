@@ -25,6 +25,9 @@ public class ReportHeaderServiceImpl implements ReportHeaderService {
            String headersJson = objectMapper.writeValueAsString(reportHeadersDto.getHeaders());
            String dataJson = objectMapper.writeValueAsString(reportHeadersDto.getData());
 
+
+           System.out.println(dataJson);
+
            ReportHeader reportHeader = new ReportHeader();
            reportHeader.setHeaders(headersJson);
            reportHeader.setData(dataJson);
