@@ -1,4 +1,9 @@
 package lk.talentfort.health_information_system.repository;
 
-public interface ReportTypeRepository {
+import lk.talentfort.health_information_system.model.ReportType;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface ReportTypeRepository extends JpaRepository<ReportType,Long> {
 }
