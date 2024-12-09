@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ReportColumnDto {
 
-    private Long reportId;
+
     private String columnName;
     private String dataType;
 }

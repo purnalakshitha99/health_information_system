@@ -4,6 +4,7 @@ import jakarta.annotation.security.RolesAllowed;
 import lk.talentfort.health_information_system.controller.dto.ReportColumnDto;
 import lk.talentfort.health_information_system.controller.request.ReportColumnRq;
 import lk.talentfort.health_information_system.controller.response.ReportColumnResponse;
+import lk.talentfort.health_information_system.exception.ReportTypeNotFoundException;
 import lk.talentfort.health_information_system.model.ReportColumn;
 import lk.talentfort.health_information_system.repository.ReportColumnRepository;
 import lk.talentfort.health_information_system.service.ReportColumnService;
@@ -24,7 +25,7 @@ public class ReportColumnController {
 
     @RolesAllowed("ADMIN")
     @PostMapping("admin/reports/{report_id}/report_columns")
-    public ReportColumnResponse  createReportColumn(@PathVariable("report_id")Long reportId, @RequestBody ReportColumnRq reportColumnRq){
+    public ReportColumnResponse  createReportColumn(@PathVariable("report_id")Long reportId, @RequestBody ReportColumnRq reportColumnRq)throws ReportTypeNotFoundException {
 
         ReportColumnDto reportColumnDto = modelMapper.map(reportColumnRq,ReportColumnDto.class);
 
