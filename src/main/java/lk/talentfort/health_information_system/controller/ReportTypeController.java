@@ -1,6 +1,7 @@
 package lk.talentfort.health_information_system.controller;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.talentfort.health_information_system.controller.dto.ReportTypeDto;
 import lk.talentfort.health_information_system.controller.request.ReportTypeRq;
 import lk.talentfort.health_information_system.controller.response.ReportTypeResponse;
@@ -19,8 +20,8 @@ public class ReportTypeController {
     private ReportTypeService reportTypeService;
     private ModelMapper modelMapper;
 
-
-    @PostMapping("/create_report")
+    @RolesAllowed("ADMIN")
+    @PostMapping("/admin/reports")
     public ReportTypeResponse createReportType(@RequestBody ReportTypeRq reportTypeRq){
 
         ReportTypeDto reportTypeDto = modelMapper.map(reportTypeRq,ReportTypeDto.class);
