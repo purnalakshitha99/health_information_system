@@ -42,7 +42,4 @@ public class ReportColumnServiceImpl implements ReportColumnService {
 
     }
 
-    public void temp(){
-
-    }
 }
