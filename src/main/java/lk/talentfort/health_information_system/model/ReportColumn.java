@@ -1,23 +1,21 @@
 package lk.talentfort.health_information_system.model;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Entity
-@Table(name = "report_types")
-public class ReportType {
+@Table(name = "report_column")
+public class ReportColumn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long reportId;
+    private String columnName;
+    private String dataType;
 
-    private String reportName;
-
-    @OneToMany(mappedBy = "reportType")
-    private List<ReportColumn> reportColumnList;
-
-
+    @ManyToOne
+    private ReportType reportType;
 }
