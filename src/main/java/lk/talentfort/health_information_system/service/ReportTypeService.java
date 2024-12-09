@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ReportTypeService {
-    ReportTypeResponse createReport(ReportTypeDto reportTypeDto)throws ReportTypeNotFoundException;
+    ReportTypeResponse createReport(ReportTypeDto reportTypeDto);
 }
