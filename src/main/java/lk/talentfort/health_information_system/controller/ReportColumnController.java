@@ -1,5 +1,6 @@
 package lk.talentfort.health_information_system.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.talentfort.health_information_system.controller.dto.ReportColumnDto;
 import lk.talentfort.health_information_system.controller.request.ReportColumnRq;
 import lk.talentfort.health_information_system.controller.response.ReportColumnResponse;
@@ -21,7 +22,8 @@ public class ReportColumnController {
     private ReportColumnService reportColumnService;
 
 
-    @PostMapping("/reports/{report_id}/report_columns")
+    @RolesAllowed("ADMIN")
+    @PostMapping("admin/reports/{report_id}/report_columns")
     public ReportColumnResponse  createReportColumn(@PathVariable("report_id")Long reportId, @RequestBody ReportColumnRq reportColumnRq){
 
         ReportColumnDto reportColumnDto = modelMapper.map(reportColumnRq,ReportColumnDto.class);

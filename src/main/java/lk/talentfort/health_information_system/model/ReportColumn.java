@@ -12,7 +12,7 @@ public class ReportColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long reportId;
+//    private Long reportId;
     private String columnName;
     private String dataType;
 
