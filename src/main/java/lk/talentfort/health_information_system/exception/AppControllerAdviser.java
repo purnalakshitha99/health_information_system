@@ -21,4 +21,16 @@ public class AppControllerAdviser {
         return customErrorResponse;
 
     }
+
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    @ExceptionHandler(CanNotCreateChemistryException.class)
+    public CustomErrorResponse duplicateException(Exception exception) {
+
+        CustomErrorResponse customErrorResponse = new CustomErrorResponse();
+
+        customErrorResponse.setMessage(exception.getMessage());
+
+        return customErrorResponse;
+
+    }
 }
