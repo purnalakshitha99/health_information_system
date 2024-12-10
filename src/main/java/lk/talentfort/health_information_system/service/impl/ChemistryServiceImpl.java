@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @AllArgsConstructor
@@ -18,11 +20,11 @@ public class ChemistryServiceImpl implements ChemistryService {
     private ChemistryRepository chemistryRepository;
 
     @Override
-    public ChemistryResponse createChemistry(ChemistryDto chemistryDto) {
+    public List<ChemistryResponse> createChemistry(List<ChemistryDto> chemistryDtoList) {
 
-        Chemistry chemistry = modelMapper.map(chemistryDto, Chemistry.class);
-        chemistryRepository.save(chemistry);
+        List<Chemistry> chemistryList = chemistryDtoList.stream().map(chemistryDto -> modelMapper.map(chemistryDto, Chemistry.class)).toList() ;
+        chemistryRepository.saveAll(chemistryList);
 
-        return modelMapper.map(chemistry, ChemistryResponse.class);
+        return chemistryList.stream().map(chemistry -> modelMapper.map(chemistry, ChemistryResponse.class)).toList() ;
     }
 }

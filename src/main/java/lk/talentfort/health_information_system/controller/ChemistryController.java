@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class ChemistryController {
@@ -19,9 +21,9 @@ public class ChemistryController {
     private ChemistryService chemistryService;
 
     @PostMapping("/admin/chemistry")
-    public ChemistryResponse createChemistry(@RequestBody ChemistryRq chemistryRq){
+    public List<ChemistryResponse> createChemistry(@RequestBody List<ChemistryRq> chemistryRqList){
 
-        ChemistryDto chemistryDto = modelMapper.map(chemistryRq,ChemistryDto.class);
-        return chemistryService.createChemistry(chemistryDto);
+       List <ChemistryDto> chemistryDtoList = chemistryRqList.stream().map(chemistryRq -> modelMapper.map(chemistryRq,ChemistryDto.class)).toList();
+        return chemistryService.createChemistry(chemistryDtoList);
     }
 }
