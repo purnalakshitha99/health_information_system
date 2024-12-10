@@ -3,11 +3,9 @@ package lk.talentfort.health_information_system.controller.dto;
 
 import lombok.Data;
 
-
 @Data
-public class ReportTypeDto {
+public class ChemistryDto {
 
-    private String reportName;
-    private Float price;
-
+    private String name;
+    private String referenceRange;
 }

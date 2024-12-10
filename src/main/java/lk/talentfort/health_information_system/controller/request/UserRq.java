@@ -13,4 +13,13 @@ public class UserRq {
     private String password;
     @Enumerated(EnumType.STRING)
     private ROLES roles;
+
+    //patient information
+
+    private String patientId;
+    private String address;
+    private String description;
+    private Integer age;
+    private String nic;
+    private String phoneNumber;
 }

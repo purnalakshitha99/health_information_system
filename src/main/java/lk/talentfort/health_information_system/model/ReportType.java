@@ -15,6 +15,7 @@ public class ReportType {
     private Long id;
 
     private String reportName;
+    private Float price;
 
     @OneToMany(mappedBy = "reportType")
     private List<ReportColumn> reportColumnList;

@@ -3,8 +3,8 @@ package lk.talentfort.health_information_system.controller.response;
 import lombok.Data;
 
 @Data
-public class ReportTypeResponse {
+public class ChemistryResponse {
 
-    private String reportName;
-    private Float price;
+    private String name;
+    private String referenceRange;
 }

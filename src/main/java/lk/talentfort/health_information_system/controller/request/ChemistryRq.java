@@ -3,9 +3,8 @@ package lk.talentfort.health_information_system.controller.request;
 import lombok.Data;
 
 @Data
-public class ReportColumnRq {
+public class ChemistryRq {
 
-
-    private String columnName;
-    private String dataType;
+    private String name;
+    private String referenceRange;
 }

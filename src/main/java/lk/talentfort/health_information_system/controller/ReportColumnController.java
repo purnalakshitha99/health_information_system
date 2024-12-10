@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class ReportColumnController {
@@ -25,11 +27,11 @@ public class ReportColumnController {
 
     @RolesAllowed("ADMIN")
     @PostMapping("admin/reports/{report_id}/report_columns")
-    public ReportColumnResponse  createReportColumn(@PathVariable("report_id")Long reportId, @RequestBody ReportColumnRq reportColumnRq)throws ReportTypeNotFoundException {
+    public List<ReportColumnResponse>  createReportColumn(@PathVariable("report_id")Long reportId, @RequestBody List <ReportColumnRq> reportColumnRqList)throws ReportTypeNotFoundException {
 
-        ReportColumnDto reportColumnDto = modelMapper.map(reportColumnRq,ReportColumnDto.class);
+        List<ReportColumnDto> reportColumnDtoList = reportColumnRqList.stream().map(reportColumnRq -> modelMapper.map(reportColumnRq,ReportColumnDto.class)).toList();
 
-       return reportColumnService.createReportColumn(reportId,reportColumnDto);
+       return reportColumnService.createReportColumn(reportId,reportColumnDtoList);
     }
 
 }

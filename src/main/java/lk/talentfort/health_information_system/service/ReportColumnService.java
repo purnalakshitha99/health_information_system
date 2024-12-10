@@ -5,7 +5,9 @@ import lk.talentfort.health_information_system.controller.response.ReportColumnR
 import lk.talentfort.health_information_system.exception.ReportTypeNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ReportColumnService {
-    ReportColumnResponse createReportColumn(Long reportId,ReportColumnDto reportColumnDto)throws ReportTypeNotFoundException;
+    List<ReportColumnResponse> createReportColumn(Long reportId, List<ReportColumnDto> reportColumnDtoList)throws ReportTypeNotFoundException;
 }

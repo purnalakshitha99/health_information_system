@@ -1,5 +1,6 @@
 package lk.talentfort.health_information_system.service.impl;
 
+
 import lk.talentfort.health_information_system.controller.dto.ReportColumnDto;
 import lk.talentfort.health_information_system.controller.response.ReportColumnResponse;
 import lk.talentfort.health_information_system.exception.ReportTypeNotFoundException;
@@ -11,6 +12,8 @@ import lk.talentfort.health_information_system.service.ReportColumnService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -24,25 +27,33 @@ public class ReportColumnServiceImpl implements ReportColumnService {
     private ReportColumnRepository reportColumnRepository;
     private ReportTypeRepository reportTypeRepository;
 
-    public ReportColumnResponse createReportColumn(Long reportId, ReportColumnDto reportColumnDto)throws ReportTypeNotFoundException {
+    public List<ReportColumnResponse> createReportColumn(Long reportId, List<ReportColumnDto> reportColumnDtoList)throws ReportTypeNotFoundException {
 
         ReportType reportType = reportTypeRepository.findById(reportId).orElseThrow(
                 ()-> new ReportTypeNotFoundException("that Report type is not in a db")
         );
 
-        ReportColumn reportColumn = modelMapper.map(reportColumnDto,ReportColumn.class);
+        List<ReportColumn> reportColumnList = reportColumnDtoList.stream().map(reportColumnDto -> {
+            ReportColumn reportColumn = modelMapper.map(reportColumnDto,ReportColumn.class);
+            reportColumn.setReportType(reportType);
+            return reportColumn;
+        }).toList();
 
-        reportColumn.setReportType(reportType);
-        reportColumnRepository.save(reportColumn);
+
+        reportColumnRepository.saveAll(reportColumnList);
 
 
 
-        return modelMapper.map(reportColumn,ReportColumnResponse.class);
+        return reportColumnList.stream().map(reportColumn -> modelMapper.map(reportColumn,ReportColumnResponse.class)).toList();
 
 
     }
 
-    public void temp(){
-
-    }
 }
+
+
+
+
+
+
+
