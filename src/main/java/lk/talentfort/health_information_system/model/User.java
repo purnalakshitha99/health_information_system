@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +24,15 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private ROLES roles;
+
+    //patient information
+
+    private String patientId;
+    private  String address;
+    private String description;
+    private Integer age;
+    private String nic;
+    private Long phoneNumber;
 
 
     @Override

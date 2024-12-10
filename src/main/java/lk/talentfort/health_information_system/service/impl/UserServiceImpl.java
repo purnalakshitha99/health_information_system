@@ -29,9 +29,26 @@ public class UserServiceImpl implements UserService {
 
         User user = modelMapper.map(userDto,User.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        if (userDto.getRoles().equals("ROLE_PATIENT")){
+
+            String latestPatientId = userRepository.findLatestPatientId(); // Custom query to get the latest patient ID
+            String newPatientId = generateNewPatientId(latestPatientId);
+            user.setPatientId(newPatientId); // Assuming User entity has a field 'patientId'
+        }
         userRepository.save(user);
 
         return modelMapper.map(user,UserResponse.class);
+    }
+
+    private String generateNewPatientId(String latestPatientId) {
+
+        if (latestPatientId == null) {
+            return "P001"; // Start from P01 if no patient IDs exist
+        }
+        int numberPart = Integer.parseInt(latestPatientId.substring(1)); // Extract the numeric part
+        String newId = String.format("P%02d", numberPart + 1); // Increment and format with leading zero
+        return newId;
     }
 
     @Override
