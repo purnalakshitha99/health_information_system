@@ -30,7 +30,12 @@ public class UserServiceImpl implements UserService {
         User user = modelMapper.map(userDto,User.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        if (userDto.getRoles().equals("ROLE_PATIENT")){
+        String roleNew = String.valueOf(userDto.getRoles());
+
+        System.out.println("role new :::::::::    "+roleNew);
+
+        if ("ROLE_PATIENT".equalsIgnoreCase(String.valueOf(userDto.getRoles()))) {
+            System.out.println("hlo mn awa");
 
             String latestPatientId = userRepository.findLatestPatientId(); // Custom query to get the latest patient ID
             String newPatientId = generateNewPatientId(latestPatientId);

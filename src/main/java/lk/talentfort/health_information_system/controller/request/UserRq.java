@@ -21,5 +21,5 @@ public class UserRq {
     private String description;
     private Integer age;
     private String nic;
-    private Long phoneNumber;
+    private String phoneNumber;
 }
