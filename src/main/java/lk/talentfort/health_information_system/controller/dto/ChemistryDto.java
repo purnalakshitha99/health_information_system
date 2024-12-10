@@ -7,4 +7,5 @@ import lombok.Data;
 public class ChemistryDto {
 
     private String name;
+    private String referenceRange;
 }
