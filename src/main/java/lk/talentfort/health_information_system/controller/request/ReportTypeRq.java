@@ -6,5 +6,6 @@ import lombok.Data;
 public class ReportTypeRq {
 
     private String reportName;
+    private Float price;
 
 }
