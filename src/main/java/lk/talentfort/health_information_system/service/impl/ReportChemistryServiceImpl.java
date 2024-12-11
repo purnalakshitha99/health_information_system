@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,35 +26,47 @@ public class ReportChemistryServiceImpl implements ReportChemistryService {
 
     private final ReportChemistryRepository reportChemistryRepository;
     private ModelMapper modelMapper;
-    private ReportChemistryRepository repository;
     private ReportTypeRepository reportTypeRepository;
     private ChemistryRepository chemistryRepository;
+
     @Override
-    public ReportChemistryResponse createReportChemistry(ReportChemistryDto reportChemistryDto) throws ReportTypeNotFoundException, ChemistryNotFoundException , CanNotCreateChemistryException {
+    public ReportChemistryResponse createReportChemistry(ReportChemistryDto reportChemistryDto)
+            throws ReportTypeNotFoundException, ChemistryNotFoundException, CanNotCreateChemistryException {
 
+        // Validate the report type
         ReportType reportType = reportTypeRepository.findById(reportChemistryDto.getReportId()).orElseThrow(
-                ()-> new ReportTypeNotFoundException("that report type is not in a db")
+                () -> new ReportTypeNotFoundException("That report type is not in the database")
         );
 
-        Chemistry chemistry = chemistryRepository.findById(reportChemistryDto.getChemistryId()).orElseThrow(
-                ()-> new ChemistryNotFoundException("that chemistry not in a db")
-        );
+        // Validate and process the list of chemistry IDs
+        List<Long> chemistryIds = reportChemistryDto.getChemistryIds();
+        List<Long> addedChemistryIds = new ArrayList<>();
 
-        List<ReportChemistry> existingReportChemistryList = reportChemistryRepository.findReportChemistriesByChemistryIdAndReportId(reportChemistryDto.getChemistryId(), reportChemistryDto.getReportId());
+        for (Long chemistryId : chemistryIds) {
+            Chemistry chemistry = chemistryRepository.findById(chemistryId).orElseThrow(
+                    () -> new ChemistryNotFoundException("That chemistry is not in the database")
+            );
 
-        if (!existingReportChemistryList.isEmpty()){
-            throw new CanNotCreateChemistryException("all ready in the that Chemistry");
+            boolean exists = !reportChemistryRepository
+                    .findReportChemistriesByChemistryIdAndReportId(chemistryId, reportChemistryDto.getReportId())
+                    .isEmpty();
+
+            if (exists) {
+                throw new CanNotCreateChemistryException("Chemistry ID " + chemistryId + " is already linked to the report.");
+            }
+
+            ReportChemistry reportChemistry = new ReportChemistry();
+            reportChemistry.setReportId(reportChemistryDto.getReportId());
+            reportChemistry.setChemistryId(chemistryId);
+            reportChemistryRepository.save(reportChemistry);
+
+            addedChemistryIds.add(chemistryId);
         }
 
-//        ReportChemistry reportChemistry = modelMapper.map(reportChemistryDto,ReportChemistry.class);
+        ReportChemistryResponse response = new ReportChemistryResponse();
+        response.setReportId(reportChemistryDto.getReportId());
+        response.setChemistryIds(addedChemistryIds);
 
-        ReportChemistry reportChemistry = new ReportChemistry();
-
-        reportChemistry.setChemistryId(reportChemistryDto.getChemistryId());
-        reportChemistry.setReportId(reportChemistryDto.getReportId());
-
-        reportChemistryRepository.save(reportChemistry);
-
-        return modelMapper.map(reportChemistry, ReportChemistryResponse.class);
+        return response;
     }
 }
