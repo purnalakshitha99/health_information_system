@@ -11,6 +11,7 @@ import lk.talentfort.health_information_system.service.ReportChemistryService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class ReportChemistryController {
 
     @RolesAllowed("ADMIN")
     @PostMapping("/admin/report_chemistry")
+    @CrossOrigin
     public ResponseEntity<ReportChemistryResponse> createReportChemistry(@RequestBody ReportChemistryRq reportChemistryRq)throws ReportTypeNotFoundException, ChemistryNotFoundException, CanNotCreateChemistryException {
 
         ReportChemistryDto reportChemistryDto = modelMapper.map(reportChemistryRq, ReportChemistryDto.class);
