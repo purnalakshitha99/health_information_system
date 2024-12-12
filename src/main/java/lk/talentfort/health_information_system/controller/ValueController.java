@@ -20,6 +20,7 @@ public class ValueController {
 
     private ModelMapper modelMapper;
     private ValueService valueService;
+    private ValuesResponse value;
 
     @RolesAllowed("ADMIN")
     @PostMapping("/admin/values")
@@ -30,7 +31,8 @@ public class ValueController {
         System.out.println("reportId: "+valuesRq.getReportId());
         System.out.println("person id: "+valuesRq.getPersonId());
         System.out.println("chemistry id: "+valuesRq.getChemistryId());
+        
         ValuesDto valuesDto = modelMapper.map(valuesRq, ValuesDto.class);
-        return valueService.createValue(valuesDto);
+        return value;
     }
 }
